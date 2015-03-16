@@ -4,23 +4,23 @@ import 'package:angular/angular.dart';
 
 void recipeBookRouteInitializer(Router router, RouteViewFactory views) {
   views.configure({
-    'apps': ngRoute(
+    'apps-list': ngRoute(
         path: '/apps',
-        view: 'view/apps.html'),
+        viewHtml: '<apps-list/>'),
     'app': ngRoute(
-        path: '/app/:appName',
+        path: '/app/:appId',
         mount: {
-          'reports': ngRoute(
+          'reports-list': ngRoute(
               path: '/reports',
-              view: 'view/reports.html'),
+              viewHtml: '<reports-list/>'),
           'report': ngRoute(
-              path: '/report/:index',
-              view: 'view/report.html')
+              path: '/report/:reportId',
+              view: '<report/>')
         }),
     'view_default': ngRoute(
         defaultRoute: true,
         enter: (RouteEnterEvent e) =>
-            router.go('apps', {},
+            router.go('apps-list', {},
                 replace: true))
   });
 }

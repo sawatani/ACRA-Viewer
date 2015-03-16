@@ -8,4 +8,6 @@ dependencies:
 dev_dependencies:
   unittest: any
 transformers:
-- angular
+- angular:
+    html_files:
+      - lib/component/apps-list.html
