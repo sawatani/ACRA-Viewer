@@ -1,0 +1,11 @@
+name: 'ACRA_viewer'
+version: 0.0.1
+environment:
+  sdk: '>=1.0.0 <2.0.0'
+dependencies:
+  angular: any
+  paper_elements: any
+dev_dependencies:
+  unittest: any
+transformers:
+- angular
