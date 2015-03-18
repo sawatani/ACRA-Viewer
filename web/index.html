@@ -15,7 +15,45 @@
 </script>
 
 </head>
+<script type="text/javascript">
+    var signin = function(token) {
+        console.log("Google Signin Token: " + token);
+        var creds = AWS.config.credentials;
+        creds.params.Logins = {};
+        creds.params.Logins['accounts.google.com'] = token;
+        
+        creds.expired = true;
+        document.getElementById('signinButton').setAttribute('style', 'display: none');
+    };
+    var signinCallback = function(authResult) {
+        var token = authResult['access_token'];
+        if (token) {
+            setTimeout(function() {
+                signin(token);
+            }, 3 * 1000);
+        } else {
+            console.log("Google Signin Error: " + authResult['error']);
+        }
+    };
+    (function() {
+        var po = document.createElement('script');
+        po.type = 'text/javascript';
+        po.async = true;
+        po.src = 'https://apis.google.com/js/client:plusone.js';
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(po, s);
+    })();
+</script>
 <body>
+    <span id="signinButton">
+        <span class="g-signin" 
+            data-callback="signinCallback" 
+            data-clientid="567792211222-rh242nv550rlc7hdi249c3uvgk6olfqt.apps.googleusercontent.com"
+            data-cookiepolicy="single_host_origin" 
+            data-requestvisibleactions="http://schemas.google.com/AddActivity"
+            data-scope="https://www.googleapis.com/auth/plus.login"
+        > </span>
+    </span>
     <ng-view></ng-view>
 
     <script type="application/dart" src="main.dart"></script>
