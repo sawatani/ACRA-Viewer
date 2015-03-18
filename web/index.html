@@ -27,7 +27,7 @@
         window.dispatchEvent(new Event("AWS.RENEW_CREDENTIAL"));
     };
     var signinCallback = function(authResult) {
-        var token = authResult['access_token'];
+        var token = authResult['id_token'];
         if (token) {
             setTimeout(function() {
                 signin(token);
