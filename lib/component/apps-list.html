@@ -1,4 +1,4 @@
-<div ng-switch="loaded">
+<div ng-switch="allApps != null">
     <div ng-switch-when="false">
         <p>{{message}}</p>
     </div>
@@ -8,7 +8,7 @@
             <ul>
                 <li ng-repeat="app in allApps">
                     <div>
-                        <a class="extra-space" href="#/app/{{app.id}}/reports">{{app.name}}</a>
+                        <a class="extra-space" href="#/app/{{app.id}}/reports">{{app.id}}</a>
                     </div>
                 </li>
             </ul>
