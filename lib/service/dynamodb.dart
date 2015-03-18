@@ -2,7 +2,6 @@ library dynamodb;
 
 import 'dart:async';
 import 'dart:js';
-import 'dart:mirrors';
 
 import 'package:angular/angular.dart';
 

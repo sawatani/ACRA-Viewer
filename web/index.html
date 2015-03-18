@@ -18,12 +18,13 @@
 <script type="text/javascript">
     var signin = function(token) {
         console.log("Google Signin Token: " + token);
+        
         var creds = AWS.config.credentials;
         creds.params.Logins = {};
         creds.params.Logins['accounts.google.com'] = token;
-        
         creds.expired = true;
-        document.getElementById('signinButton').setAttribute('style', 'display: none');
+        
+        window.dispatchEvent(new Event("AWS.RENEW_CREDENTIAL"));
     };
     var signinCallback = function(authResult) {
         var token = authResult['access_token'];
@@ -31,6 +32,7 @@
             setTimeout(function() {
                 signin(token);
             }, 3 * 1000);
+            document.getElementById('signinButton').setAttribute('style', 'display: none');
         } else {
             console.log("Google Signin Error: " + authResult['error']);
         }
