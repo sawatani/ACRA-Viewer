@@ -6,6 +6,14 @@
 
 <title>ACRA Viewer</title>
 
+<script src="https://sdk.amazonaws.com/js/aws-sdk-2.1.17.min.js"></script>
+<script type="text/javascript">
+    AWS.config.region = "us-east-1";
+    AWS.config.credentials = new AWS.CognitoIdentityCredentials({
+        IdentityPoolId: 'us-east-1:fcf0d3cc-c16f-4221-be60-5838f9f5421e'
+    });
+</script>
+
 </head>
 <body>
     <ng-view></ng-view>
