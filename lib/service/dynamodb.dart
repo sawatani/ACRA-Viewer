@@ -1,6 +1,7 @@
 library dynamodb;
 
 import 'dart:async';
+import 'dart:convert';
 import 'dart:js';
 
 import 'package:angular/angular.dart';
@@ -57,8 +58,12 @@ class Report {
   final String id;
   final String text;
   final DateTime timestamp;
+  var _map;
 
   Report(this.id, this.timestamp, this.text) {
     print("Created report: ${id}: ${timestamp}");
+    _map = JSON.decode(text);
   }
+
+  String get stackTrace => _map['STACKTRACE'].toString();
 }
