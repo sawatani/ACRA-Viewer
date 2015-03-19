@@ -12,8 +12,14 @@ class ReportsListComponent extends HistoryBack {
   App app;
   List<Report> get allReports => app.allReports;
 
-  ReportsListComponent(this._db, RouteProvider routeProvider) {
+  ReportsListComponent(this._db, RouteProvider routeProvider, Router router) {
     final String appId = routeProvider.parameters['appId'];
-    app = _db.getApp(appId);
+    print("Loading App(${appId})");
+    try {
+      app = _db.getApp(appId);
+      app.id; // for test app is not null.
+    } catch (ex) {
+      router.go("view_default", {});
+    }
   }
 }
