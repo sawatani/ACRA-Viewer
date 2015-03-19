@@ -11,3 +11,4 @@ transformers:
 - angular:
     html_files:
       - lib/component/apps-list.html
+      - lib/component/credential.html
