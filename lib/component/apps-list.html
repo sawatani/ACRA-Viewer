@@ -1,14 +1,14 @@
-<div ng-switch="loaded">
-    <div ng-switch-when="false">
+<div ng-switch="allApps">
+    <div ng-switch-when="null">
         <p>{{message}}</p>
     </div>
-    <div ng-switch-when="true">
+    <div ng-switch-default>
         <h3>Application List</h3>
         <div id="recipe-list">
             <ul>
                 <li ng-repeat="app in allApps">
                     <div>
-                        <a class="extra-space" href="#/app/{{app.id}}/reports">{{app.name}}</a>
+                        <a class="extra-space" href="#/app/{{app.id}}/reports">{{app.tableName}}</a>
                     </div>
                 </li>
             </ul>

@@ -6,9 +6,17 @@
 
 <title>ACRA Viewer</title>
 
+<script src="https://sdk.amazonaws.com/js/aws-sdk-2.1.17.min.js"></script>
+<script src="https://apis.google.com/js/client:plusone.js?onload=OnLoadCallback"></script>
+
 </head>
 <body>
-    <ng-view></ng-view>
+    <section>
+        <credential />
+    </section>
+    <section>
+        <ng-view></ng-view>
+    </section>
 
     <script type="application/dart" src="main.dart"></script>
     <script data-pub-inline src="packages/browser/dart.js"></script>
