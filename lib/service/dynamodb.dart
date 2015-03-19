@@ -80,10 +80,7 @@ class App {
   Delegate<Report> _table;
 
   List<Report> _cachedReports = null;
-  List<Report> get allReports {
-    if (_cachedReports == null) refreshReports();
-    return _cachedReports;
-  }
+  List<Report> get allReports => _cachedReports;
 
   App(this.id, this.tableName) {
     print("Created app: ${id} with ${tableName}");
@@ -93,6 +90,7 @@ class App {
       final text = item['REPORT']['S'];
       return new Report(id, DateTime.parse(created), text);
     });
+    refreshReports();
   }
 
   Report getReport(String id) {
