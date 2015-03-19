@@ -3,8 +3,8 @@ library dynamodb;
 import 'dart:async';
 import 'dart:convert';
 import 'dart:js';
-import 'dart:html';
 
+import 'package:acra_viewer/service/credential.dart' as Cred;
 import 'package:angular/angular.dart';
 
 @Injectable()
@@ -18,8 +18,8 @@ class DynamoDB {
   List<App> _cachedApps = null;
   List<App> get allApps => _cachedApps;
 
-  DynamoDB() {
-    window.addEventListener("AWS.RENEW_CREDENTIAL", (Event event) {
+  DynamoDB(RootScope scope) {
+    scope.on(Cred.Credential.EVENT_CONNECTED).listen((event) {
       refreshApps();
     });
   }

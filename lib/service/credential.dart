@@ -7,6 +7,8 @@ import 'package:angular/angular.dart';
 
 @Injectable()
 class Credential {
+  static const String EVENT_CONNECTED = "EVENT_CONNECTED";
+
   static final List<String> scopes = ["https://www.googleapis.com/auth/plus.login", "https://www.googleapis.com/auth/admin.directory.group.member.readonly"];
   static final String clientId = "567792211222-rh242nv550rlc7hdi249c3uvgk6olfqt.apps.googleusercontent.com";
   static _initialize() {
@@ -20,9 +22,11 @@ class Credential {
   }
   static final bool setup = _initialize();
 
-  static String jsToString(JsObject obj) => context['JSON'].callMethod('stringify',[obj]);
+  static String stringify(JsObject obj) => context['JSON'].callMethod('stringify', [obj]);
 
-  Credential() {
+  RootScope rootScope;
+
+  Credential(this.rootScope) {
     // Need to evel 'setup' to exec '_initialize()'
     print("Credential is instantiated: ${setup}");
   }
@@ -41,8 +45,8 @@ class Credential {
 
   Future<String> _getUserId() {
     return _request('/plus/v1/people/me').then((result) {
-      print("me: ${jsToString(result)}");
-      return result['id'].toString();
+      print("me: ${stringify(result)}");
+      return result['id'];
     }).catchError((error) {
       print("Failed to get user id: ${error}");
     });
@@ -51,7 +55,7 @@ class Credential {
   Future<bool> _isMember(String userId) {
     return _request('/admin/directory/v1/groups/campany%40fathens.org/members').then((result) {
       final JsArray members = result['members'];
-      print("Group members: ${jsToString(members)}");
+      print("Group members: ${stringify(members)}");
       final index = members.map((m) {
         return m['id'];
       }).toList().indexOf(userId);
@@ -78,7 +82,7 @@ class Credential {
         'response_type': 'token id_token',
         'immediate': true
       }), (res) {
-        print("Google Auth Result: ${jsToString(res)}");
+        print("Google Auth Result: ${stringify(res)}");
         if (res['error'] != null) {
           result.completeError("Google Signin Error: ${res['error']}");
         } else {
@@ -87,6 +91,7 @@ class Credential {
               try {
                 if (ok) {
                   _setGoogleToken(res['id_token']);
+                  rootScope.broadcast(EVENT_CONNECTED);
                 } else {
                   print("This user is not permitted.");
                 }
