@@ -2,11 +2,12 @@ library report_component;
 
 import 'package:angular/angular.dart';
 import 'package:acra_viewer/service/dynamodb.dart';
+import 'package:acra_viewer/decorator/history_back.dart';
 
 @Component(
     selector: 'report',
     templateUrl: 'report.html')
-class ReportComponent {
+class ReportComponent extends HistoryBack {
   final DynamoDB _db;
   Report report;
 
