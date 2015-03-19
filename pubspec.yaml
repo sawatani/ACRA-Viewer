@@ -1,16 +1,19 @@
-name: 'acra_viewer'
+name: acra_viewer
 version: 0.0.1
 environment:
   sdk: '>=1.0.0 <2.0.0'
 dependencies:
   angular: any
   paper_elements: any
+  polymer: any
 dev_dependencies:
   unittest: any
 transformers:
 - angular:
     html_files:
-      - lib/component/apps-list.html
-      - lib/component/reports-list.html
-      - lib/component/report.html
-      - lib/component/credential.html
+    - lib/component/apps-list.html
+    - lib/component/reports-list.html
+    - lib/component/report.html
+    - lib/component/credential.html
+    - lib/component/pager.html
+- polymer
