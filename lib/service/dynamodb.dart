@@ -15,11 +15,12 @@ class DynamoDB {
     return new App(id, tableName);
   });
 
+  final Scope scope;
   List<App> _cachedApps = null;
   List<App> get allApps => _cachedApps;
 
-  DynamoDB(RootScope scope) {
-    scope.on(Cred.Credential.EVENT_CONNECTED).listen((event) {
+  DynamoDB(this.scope) {
+    scope.rootScope.on(Cred.Credential.EVENT_CONNECTED).listen((event) {
       refreshApps();
     });
   }
@@ -34,9 +35,13 @@ class DynamoDB {
   void refreshApps() {
     print("Start to refresh applications list");
     _apps.allList().then((List<App> list) {
-      _cachedApps = list;
+      scope.apply(() {
+        _cachedApps = list;
+      });
     }).catchError((error) {
-      _cachedApps = null;
+      scope.apply(() {
+        _cachedApps = null;
+      });
       print("Failed to get applications list: ${error}");
     });
   }
