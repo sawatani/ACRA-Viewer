@@ -3,6 +3,7 @@ library acra_viewer;
 import 'package:acra_viewer/router.dart';
 import 'package:acra_viewer/component/apps-list.dart';
 import 'package:acra_viewer/component/reports-list.dart';
+import 'package:acra_viewer/component/report.dart';
 import 'package:acra_viewer/component/credential.dart';
 import 'package:acra_viewer/service/dynamodb.dart';
 import 'package:acra_viewer/service/credential.dart';
@@ -15,6 +16,7 @@ class ACRAViewerModule extends Module {
   ACRAViewerModule() {
     bind(AppsListComponent);
     bind(ReportsListComponent);
+    bind(ReportComponent);
     bind(CredentialComponent);
     bind(Credential);
     bind(DynamoDB);

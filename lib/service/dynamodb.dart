@@ -24,6 +24,11 @@ class DynamoDB {
     });
   }
 
+  App getApp(String id) {
+    if (allApps == null) return null;
+    return allApps.firstWhere((a) { return a.id == id; });
+  }
+
   void refreshApps() {
     print("Start to refresh applications list");
     _apps.allList().then((List<App> list) {
@@ -67,6 +72,9 @@ class App {
   final String tableName;
   Delegate<Report> _table;
 
+  List<Report> _cachedReports = null;
+  List<Report> get allReports => _cachedReports;
+
   App(this.id, this.tableName) {
     print("Created app: ${id} with ${tableName}");
     _table = new Delegate<Report>(tableName, (item) {
@@ -75,13 +83,21 @@ class App {
       final text = item['REPORT']['S'];
       return new Report(id, DateTime.parse(created), text);
     });
+    refreshReports();
   }
 
-  Future<List<Report>> allReports() => _table.allList().then((List<Report> list) {
+  Report getReport(String id) {
+    if (allReports == null) return null;
+    return allReports.firstWhere((a) { return a.id == id; });
+  }
+
+  Future<List<Report>> refreshReports() => _table.allList().then((list) {
     list.sort((a, b) {
       return b.timestamp.compareTo(a.timestamp);
     });
     return list;
+  }).then((list) {
+    _cachedReports = list;
   });
 }
 
@@ -96,5 +112,5 @@ class Report {
     _map = JSON.decode(text);
   }
 
-  String get stackTrace => _map['STACKTRACE'].toString();
+  String get stackTrace => _map['STACK_TRACE'].toString();
 }
