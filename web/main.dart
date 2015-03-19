@@ -20,6 +20,7 @@ class ACRAViewerModule extends Module {
     bind(ReportsListComponent);
     bind(ReportComponent);
     bind(CredentialComponent);
+    bind(PagerComponent);
     bind(Credential);
     bind(DynamoDB);
     bind(RouteInitializerFn, toValue: recipeBookRouteInitializer);
