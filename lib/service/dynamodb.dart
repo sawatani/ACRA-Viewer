@@ -124,4 +124,5 @@ class Report {
   }
 
   String get stackTrace => _map['STACK_TRACE'].toString();
+  String get logcat => _map['LOGCAT'].toString();
 }
