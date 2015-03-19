@@ -7,75 +7,11 @@
 <title>ACRA Viewer</title>
 
 <script src="https://sdk.amazonaws.com/js/aws-sdk-2.1.17.min.js"></script>
-<script type="text/javascript">
-    AWS.config.region = "us-east-1";
-    AWS.config.credentials = new AWS.CognitoIdentityCredentials({
-        IdentityPoolId: 'us-east-1:fcf0d3cc-c16f-4221-be60-5838f9f5421e'
-    });
-</script>
-
 <script src="https://apis.google.com/js/client:plusone.js?onload=OnLoadCallback"></script>
-<script type="text/javascript">
-    gapi.client.setApiKey('AIzaSyC-RwPWTsW9dd4aGZPMe3f7K67Wh0zHLCI');
-</script>
 
 </head>
-<script type="text/javascript">
-    var getUserId = function(success) {
-        gapi.client.request({
-            'path': '/plus/v1/people/me'
-        }).then(function(res) {
-            console.log("me: " + JSON.stringify(res.result));
-            success(res.result.id);
-        }, function(error) {
-            console.log('Error: ' + error.result.error.message);
-        });
-    }
-    var isMember = function(id, success) {
-        gapi.client.request({
-            'path': '/admin/directory/v1/groups/campany%40fathens.org/members'
-        }).then(function(res) {
-            var members = res.result.members;
-            console.log("Group members: " + JSON.stringify(members));
-            for(var i = 0; i < members.length; i++) {
-              if (members[i].id == id) success();
-            }
-        }, function(error) {
-            console.log('Error: ' + error.result.error.message);
-        });
-    }
-    var signin = function(token) {
-        console.log("Google Signin Token: " + token);
-
-        var creds = AWS.config.credentials;
-        creds.params.Logins = {};
-        creds.params.Logins['accounts.google.com'] = token;
-        creds.expired = true;
-
-        window.dispatchEvent(new Event("AWS.RENEW_CREDENTIAL"));
-    };
-    var signinCallback = function(res) {
-        if (res['error']) {
-            console.log("Google Signin Error: " + res['error']);
-        } else {
-            getUserId(function(id) {
-                isMember(id, function() {
-                    signin(res['id_token']);
-                });
-            });
-            document.getElementById('signinButton').setAttribute('style', 'display: none');
-        }
-    };
-</script>
 <body>
-    <span id="signinButton">
-        <span class="g-signin" 
-            data-callback="signinCallback" 
-            data-clientid="567792211222-rh242nv550rlc7hdi249c3uvgk6olfqt.apps.googleusercontent.com"
-            data-cookiepolicy="single_host_origin" 
-            data-scope="https://www.googleapis.com/auth/plus.login https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/admin.directory.group.member.readonly"
-        > </span>
-    </span>
+    <credential />
     <ng-view></ng-view>
 
     <script type="application/dart" src="main.dart"></script>
