@@ -26,7 +26,9 @@ class DynamoDB {
 
   App getApp(String id) {
     if (allApps == null) return null;
-    return allApps.firstWhere((a) { return a.id == id; });
+    return allApps.firstWhere((a) {
+      return a.id == id;
+    });
   }
 
   void refreshApps() {
@@ -73,7 +75,10 @@ class App {
   Delegate<Report> _table;
 
   List<Report> _cachedReports = null;
-  List<Report> get allReports => _cachedReports;
+  List<Report> get allReports {
+    if (_cachedReports == null) refreshReports();
+    return _cachedReports;
+  }
 
   App(this.id, this.tableName) {
     print("Created app: ${id} with ${tableName}");
@@ -83,12 +88,13 @@ class App {
       final text = item['REPORT']['S'];
       return new Report(id, DateTime.parse(created), text);
     });
-    refreshReports();
   }
 
   Report getReport(String id) {
     if (allReports == null) return null;
-    return allReports.firstWhere((a) { return a.id == id; });
+    return allReports.firstWhere((a) {
+      return a.id == id;
+    });
   }
 
   Future<List<Report>> refreshReports() => _table.allList().then((list) {
