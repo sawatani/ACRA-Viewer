@@ -1,8 +1,8 @@
-<div ng-switch="allApps != null">
-    <div ng-switch-when="false">
+<div ng-switch="allApps">
+    <div ng-switch-when="null">
         <p>{{message}}</p>
     </div>
-    <div ng-switch-when="true">
+    <div ng-switch-default>
         <h3>Application List</h3>
         <div id="recipe-list">
             <ul>
