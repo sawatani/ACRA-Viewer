@@ -74,13 +74,13 @@ class Credential {
     creds['expired'] = true;
   }
 
-  Future<bool> signinGoogle() {
+  Future<bool> signinGoogle(bool immediate) {
     final result = new Completer();
     context['gapi']['auth'].callMethod('authorize', [new JsObject.jsify({
         'client_id': clientId,
         'scope': scopes.join(' '),
         'response_type': 'token id_token',
-        'immediate': true
+        'immediate': immediate
       }), (res) {
         print("Google Auth Result: ${stringify(res)}");
         if (res['error'] != null) {

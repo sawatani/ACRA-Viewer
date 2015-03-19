@@ -13,12 +13,14 @@ class CredentialComponent {
 
   CredentialComponent(this.cred) {
     print("CredentialComponent is instantiated with ${cred}");
-    signIn();
+    cred.signinGoogle(true).then((bool connected) {
+      authorized = connected;
+    });
   }
 
   void signIn() {
     print("Start SignIn with Google");
-    cred.signinGoogle().then((bool connected) {
+    cred.signinGoogle(false).then((bool connected) {
       authorized = connected;
     });
   }
