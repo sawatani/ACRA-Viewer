@@ -15,7 +15,7 @@ void recipeBookRouteInitializer(Router router, RouteViewFactory views) {
               viewHtml: '<reports-list/>'),
           'report': ngRoute(
               path: '/report/:reportId',
-              view: '<report/>')
+              viewHtml: '<report/>')
         }),
     'view_default': ngRoute(
         defaultRoute: true,

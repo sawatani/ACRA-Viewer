@@ -15,21 +15,33 @@ class DynamoDB {
     return new App(id, tableName);
   });
 
+  final Scope scope;
   List<App> _cachedApps = null;
   List<App> get allApps => _cachedApps;
 
-  DynamoDB(RootScope scope) {
-    scope.on(Cred.Credential.EVENT_CONNECTED).listen((event) {
+  DynamoDB(this.scope) {
+    scope.rootScope.on(Cred.Credential.EVENT_CONNECTED).listen((event) {
       refreshApps();
+    });
+  }
+
+  App getApp(String id) {
+    if (allApps == null) return null;
+    return allApps.firstWhere((a) {
+      return a.id == id;
     });
   }
 
   void refreshApps() {
     print("Start to refresh applications list");
     _apps.allList().then((List<App> list) {
-      _cachedApps = list;
+      scope.apply(() {
+        _cachedApps = list;
+      });
     }).catchError((error) {
-      _cachedApps = null;
+      scope.apply(() {
+        _cachedApps = null;
+      });
       print("Failed to get applications list: ${error}");
     });
   }
@@ -65,7 +77,10 @@ class Delegate<T> {
 class App {
   final String id;
   final String tableName;
-  var _table;
+  Delegate<Report> _table;
+
+  List<Report> _cachedReports = null;
+  List<Report> get allReports => _cachedReports;
 
   App(this.id, this.tableName) {
     print("Created app: ${id} with ${tableName}");
@@ -75,9 +90,24 @@ class App {
       final text = item['REPORT']['S'];
       return new Report(id, DateTime.parse(created), text);
     });
+    refreshReports();
   }
 
-  Future<List<Report>> allReports() => _table.allList();
+  Report getReport(String id) {
+    if (allReports == null) return null;
+    return allReports.firstWhere((a) {
+      return a.id == id;
+    });
+  }
+
+  Future<List<Report>> refreshReports() => _table.allList().then((list) {
+    list.sort((a, b) {
+      return b.timestamp.compareTo(a.timestamp);
+    });
+    return list;
+  }).then((list) {
+    _cachedReports = list;
+  });
 }
 
 class Report {
@@ -91,5 +121,6 @@ class Report {
     _map = JSON.decode(text);
   }
 
-  String get stackTrace => _map['STACKTRACE'].toString();
+  String get stackTrace => _map['STACK_TRACE'].toString();
+  String get logcat => _map['LOGCAT'].toString();
 }

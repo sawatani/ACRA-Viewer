@@ -1,0 +1,13 @@
+<div>
+    <button ng-click="back()">Back</button>
+</div>
+<h3>Report Detail</h3>
+<div>
+  <p>Created at {{report.timestamp}}</p>
+  <p>Stack Trace</p>
+  <textarea rows="10" cols="80">{{report.stackTrace}}</textarea>
+  <p>Logcat</p>
+  <textarea rows="10" cols="80">{{report.logcat}}</textarea>
+  <p>Source</p>
+  <textarea rows="10" cols="80">{{report.text}}</textarea>
+</div>
