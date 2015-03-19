@@ -65,7 +65,7 @@ class Delegate<T> {
 class App {
   final String id;
   final String tableName;
-  var _table;
+  Delegate<Report> _table;
 
   App(this.id, this.tableName) {
     print("Created app: ${id} with ${tableName}");
@@ -77,7 +77,12 @@ class App {
     });
   }
 
-  Future<List<Report>> allReports() => _table.allList();
+  Future<List<Report>> allReports() => _table.allList().then((List<Report> list) {
+    list.sort((a, b) {
+      return b.timestamp.compareTo(a.timestamp);
+    });
+    return list;
+  });
 }
 
 class Report {

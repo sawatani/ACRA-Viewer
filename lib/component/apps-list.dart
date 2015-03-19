@@ -8,12 +8,10 @@ import 'package:acra_viewer/service/dynamodb.dart';
     templateUrl: 'apps-list.html')
 class AppsListComponent {
   String _appId;
-  DynamoDB db;
+  final DynamoDB _db;
 
   String message = "Loading list ...";
-  List<App> get allApps => db.allApps;
+  List<App> get allApps => _db.allApps;
 
-  AppsListComponent(this.db, RouteProvider routeProvider) {
-    _appId = routeProvider.parameters['appId'];
-  }
+  AppsListComponent(this._db);
 }
