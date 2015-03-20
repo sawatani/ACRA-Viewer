@@ -5,7 +5,6 @@ import 'package:acra_viewer/component/apps-list.dart';
 import 'package:acra_viewer/component/reports-list.dart';
 import 'package:acra_viewer/component/report.dart';
 import 'package:acra_viewer/component/credential.dart';
-import 'package:acra_viewer/component/pager.dart';
 import 'package:acra_viewer/service/dynamodb.dart';
 import 'package:acra_viewer/service/credential.dart';
 
@@ -20,7 +19,6 @@ class ACRAViewerModule extends Module {
     bind(ReportsListComponent);
     bind(ReportComponent);
     bind(CredentialComponent);
-    bind(PagerComponent);
     bind(Credential);
     bind(DynamoDB);
     bind(RouteInitializerFn, toValue: recipeBookRouteInitializer);

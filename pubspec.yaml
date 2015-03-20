@@ -15,5 +15,4 @@ transformers:
     - lib/component/reports-list.html
     - lib/component/report.html
     - lib/component/credential.html
-    - lib/component/pager.html
 - polymer
