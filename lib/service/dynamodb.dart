@@ -121,6 +121,9 @@ class Report {
     _map = JSON.decode(text);
   }
 
+  String get androidVersion => _map['ANDROID_VERSION'].toString();
+  String get phoneModel => _map['PHONE_MODEL'].toString();
+  String get versionName => _map['APP_VERSION_NAME'].toString();
   String get stackTrace => _map['STACK_TRACE'].toString();
   String get logcat => _map['LOGCAT'].toString();
 }

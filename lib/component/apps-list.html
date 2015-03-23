@@ -1,6 +1,7 @@
 <div ng-switch="allApps">
     <div ng-switch-when="null">
-        <p>{{message}}</p>
+        <span>{{message}}</span>
+        <paper-spinner active></paper-spinner>
     </div>
     <div ng-switch-default>
         <h3>Application List</h3>
