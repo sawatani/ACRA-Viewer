@@ -1,0 +1,27 @@
+<div>
+    <paper-icon-button icon="arrow-back" ng-click="back()"></paper-icon-button>
+</div>
+<h3>Report Detail</h3>
+<div>
+  <p>Created at {{report.timestamp}}</p>
+  <table>
+    <tr>
+      <th>APP_VERSION_NAME</th>
+      <td>{{report.versionName}}</td>
+    </tr>
+    <tr>
+      <th>PHONE_MODEL</th>
+      <td>{{report.phoneModel}}</td>
+    </tr>
+    <tr>
+      <th>ANDROID_VERSION</th>
+      <td>{{report.androidVersion}}</td>
+    </tr>
+  </table>
+  <p>Stack Trace</p>
+  <textarea rows="10" cols="80">{{report.stackTrace}}</textarea>
+  <p>Logcat</p>
+  <textarea rows="10" cols="80">{{report.logcat}}</textarea>
+  <p>Source</p>
+  <textarea rows="10" cols="80">{{report.text}}</textarea>
+</div>
