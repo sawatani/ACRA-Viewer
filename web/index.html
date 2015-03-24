@@ -9,17 +9,19 @@
 <script src="https://sdk.amazonaws.com/js/aws-sdk-2.1.17.min.js"></script>
 <script src="https://apis.google.com/js/client:plusone.js?onload=OnLoadCallback"></script>
 
-</head>
-<body>
-    <link rel="import" href="packages/polymer/polymer.html">
-    <link rel="import" href="packages/paper_elements/paper_icon_button.html">
-    <link rel="import" href="packages/paper_elements/paper_spinner.html">
+<link rel="import" href="packages/polymer/polymer.html">
+<link rel="import" href="packages/core_elements/core_list_dart.html">
 
+</head>
+<body unresolved>
     <section>
-        <credential></credential>
-    </section>
-    <section>
-        <ng-view></ng-view>
+        <p>BEGIN</p>
+        <core-list-dart bind-data="12"> <template>
+        <div class="row {{ {selected: selected} }}" style="height: 80px">
+            <p>{{index}}</p>
+        </div>
+        </template> </core-list-dart>
+        <p>END</p>
     </section>
 
     <script type="application/dart" src="main.dart"></script>

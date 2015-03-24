@@ -1,18 +1,21 @@
-<div ng-switch="allApps">
-    <div ng-switch-when="null">
-        <span>{{message}}</span>
+<div ng-switch="loaded">
+    <div ng-switch-when="false">
+        <span>Loading...</span>
         <paper-spinner active></paper-spinner>
     </div>
     <div ng-switch-default>
         <h3>Application List</h3>
-        <div id="app-list">
-            <ul>
-                <li ng-repeat="app in allApps">
-                    <div>
-                        <a class="extra-space" href="#/app/{{app.id}}/reports">{{app.tableName}}</a>
-                    </div>
-                </li>
-            </ul>
+        
+        <paper-slider min="0" bind-max="pageLengthMax" bind-value="pageLength" pin="true"></paper-slider>
+
+        <p>BEGIN</p>
+
+        <core-list-dart bind-data="allApps" height="500"> <template>
+        <div>
+            <p>ROW</p>
         </div>
+        </template> </core-list-dart>
+
+        <p>END</p>
     </div>
 </div>

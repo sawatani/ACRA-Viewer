@@ -8,13 +8,11 @@
     </div>
     <div ng-switch-default>
         <div id="report-list">
-            <ul>
-                <li ng-repeat="report in allReports">
-                    <div>
-                        <a class="extra-space" href="#/app/{{app.id}}/report/{{report.id}}">{{report.timestamp}}</a>
-                    </div>
-                </li>
-            </ul>
+            <paper-shadow>
+                <paper-item ng-repeat="report in allReports">
+                    <a class="extra-space" href="#/app/{{app.id}}/report/{{report.id}}">{{report.timestamp}}</a>
+                </paper-item>
+            </paper-shadow>
         </div>
     </div>
 </div>
