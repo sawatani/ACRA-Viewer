@@ -10,20 +10,39 @@
 <script src="https://apis.google.com/js/client:plusone.js?onload=OnLoadCallback"></script>
 
 <link rel="import" href="packages/polymer/polymer.html">
-<link rel="import" href="packages/core_elements/core_list_dart.html">
+<link rel="import" href="packages/core_elements/core_scaffold.html">
+<link rel="import" href="packages/core_elements/core_header_panel.html">
+<link rel="import" href="packages/core_elements/core_toolbar.html">
+<link rel="import" href="packages/core_elements/core_menu.html">
+<link rel="import" href="packages/core_elements/core_item.html">
+<link rel="import" href="packages/paper_elements/paper_slider.html">
+<link rel="import" href="packages/paper_elements/paper_icon_button.html">
+<link rel="import" href="packages/paper_elements/paper_shadow.html">
+<link rel="import" href="packages/paper_elements/paper_spinner.html">
+<link rel="import" href="packages/paper_elements/paper_item.html">
 
 </head>
 <body unresolved>
-    <section>
-        <p>BEGIN</p>
-        <core-list-dart bind-data="12"> <template>
-        <div class="row {{ {selected: selected} }}" style="height: 80px">
-            <p>{{index}}</p>
+    <core-scaffold>
+        <core-header-panel navigation flex>
+            <core-toolbar>
+                <div>Menu</div>
+            </core-toolbar>
+            <core-menu>
+                <core-item icon="settings" label="item1"></core-item>
+                <core-item icon="settings" label="item2"></core-item>
+            </core-menu>
+        </core-header-panel>
+        
+        <div tool flex>
+            <p>Title</p>
         </div>
-        </template> </core-list-dart>
-        <p>END</p>
-    </section>
-
+        
+        <credential></credential>
+        <ng-view></ng-view>
+        
+    </core-scaffold>
+    
     <script type="application/dart" src="main.dart"></script>
     <script data-pub-inline src="packages/browser/dart.js"></script>
 </body>

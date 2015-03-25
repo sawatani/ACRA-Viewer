@@ -1,21 +1,16 @@
-<div ng-switch="loaded">
-    <div ng-switch-when="false">
-        <span>Loading...</span>
-        <paper-spinner active></paper-spinner>
+<div>
+    <div ng-if="!loaded">
+        <div style="margin: 10px">
+            <paper-spinner active></paper-spinner>
+        </div>
     </div>
-    <div ng-switch-default>
+    <div ng-if="loaded">
         <h3>Application List</h3>
         
-        <paper-slider min="0" bind-max="pageLengthMax" bind-value="pageLength" pin="true"></paper-slider>
-
-        <p>BEGIN</p>
-
-        <core-list-dart bind-data="allApps" height="500"> <template>
-        <div>
-            <p>ROW</p>
+        <div ng-repeat="model in allApps" ng-click="goApp(model.id)">
+            <paper-item>
+                <p>{{model.id}}</p>
+            </paper-item>
         </div>
-        </template> </core-list-dart>
-
-        <p>END</p>
     </div>
 </div>

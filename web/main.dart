@@ -31,9 +31,8 @@ void main() {
              ..onRecord.listen((LogRecord r) { print(r.message); });
 
   initPolymer().run(() {
-    final ij = applicationFactory().addModule(new ACRAViewerModule()).run();
-    ij.get(Scope)
-        ..context['allApps'] = "ab" //toObservable([new Table('A', 'Alpha'), new Table('B', 'Beta')])
-        ..apply();
+    applicationFactory()
+      .addModule(new ACRAViewerModule())
+      .run();
   });
 }
