@@ -21,8 +21,7 @@ class DynamoDB {
 
   DynamoDB(this.scope) {
     scope.rootScope.on(Cred.Credential.EVENT_CONNECTED).listen((event) {
-      //refreshApps();
-      _cachedApps = [new App('TritonNote', 'TritonNote')];
+      refreshApps();
     });
   }
 
@@ -91,7 +90,7 @@ class App {
       final text = item['REPORT']['S'];
       return new Report(id, DateTime.parse(created), text);
     });
-    //refreshReports();
+    refreshReports();
   }
 
   Report getReport(String id) {
