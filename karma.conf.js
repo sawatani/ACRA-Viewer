@@ -7,7 +7,12 @@ module.exports = function(config) {
       'test/**/*_test.dart'
     ],
 
-    reporters: ['progress'],
+    reporters: ['progress', 'junit'],
+    
+    junitReporter: {
+      outputFile: 'test/results.xml',
+      suite: ''
+    },
 
     logLevel: config.LOG_DEBUG,
 
@@ -15,6 +20,7 @@ module.exports = function(config) {
 
     plugins: [
       'karma-dart',
+      'karma-junit-reporter',
       'karma-chrome-launcher'
     ],
     
