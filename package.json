@@ -1,0 +1,22 @@
+{
+  "name": "ACRA-Viewer",
+  "description": "View reports of ACRA-Server",
+  "devDependencies": {
+    "karma": "^0.12.31",
+    "karma-chrome-launcher": "^0.1.7",
+    "karma-dart": "^0.2.8"
+  },
+  "scripts": {
+    "test": "node_modules/karma/bin/karma start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://sawatani@github.com/sawatani/ACRA-Viewer.git"
+  },
+  "author": "Kunio Sawatani",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/sawatani/ACRA-Viewer/issues"
+  },
+  "homepage": "https://github.com/sawatani/ACRA-Viewer"
+}
