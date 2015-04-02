@@ -4,7 +4,8 @@ module.exports = function(config) {
     frameworks: ['dart-unittest'],
 
     files: [
-      'test/**/*_test.dart'
+      'test/**/*_test.dart',
+      {pattern: 'lib/**/*.dart', watched: true, included: false, served: true}
     ],
 
     reporters: ['progress', 'junit'],
