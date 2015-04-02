@@ -8,15 +8,19 @@ import 'package:angular/angular.dart';
 @Injectable()
 class Credential {
   static const EVENT_CONNECTED = "EVENT_CONNECTED";
-  static const clientId = "567792211222-rh242nv550rlc7hdi249c3uvgk6olfqt.apps.googleusercontent.com";
+  static const awsRegion = "us-east-1";
+  static const awsApiKey = "AIzaSyC-RwPWTsW9dd4aGZPMe3f7K67Wh0zHLCI";
+  static const cognitoId = "us-east-1:fcf0d3cc-c16f-4221-be60-5838f9f5421e";
+  static const googleClientId = "567792211222-rh242nv550rlc7hdi249c3uvgk6olfqt.apps.googleusercontent.com";
   static const scopes = const["https://www.googleapis.com/auth/plus.login", "https://www.googleapis.com/auth/admin.directory.group.member.readonly"];
+  static const googleGroupEmail = "campany@fathens.org";
 
   static bool _initialize() {
     print("Initializing credentials ...");
-    context['AWS']['config']['region'] = "us-east-1";
+    context['AWS']['config']['region'] = awsRegion;
     context['AWS']['config']['credentials'] =
-        new JsObject(context['AWS']['CognitoIdentityCredentials'], [new JsObject.jsify({'IdentityPoolId': 'us-east-1:fcf0d3cc-c16f-4221-be60-5838f9f5421e'})]);
-    context['gapi']['client'].callMethod('setApiKey', ['AIzaSyC-RwPWTsW9dd4aGZPMe3f7K67Wh0zHLCI']);
+        new JsObject(context['AWS']['CognitoIdentityCredentials'], [new JsObject.jsify({'IdentityPoolId': cognitoId})]);
+    context['gapi']['client'].callMethod('setApiKey', [awsApiKey]);
     return true;
   }
   static final setup = _initialize();
@@ -50,7 +54,7 @@ class Credential {
   }
 
   Future<bool> _isMember(String userId) async {
-    final result = await _request('/admin/directory/v1/groups/campany%40fathens.org/members');
+    final result = await _request('/admin/directory/v1/groups/${Uri.encodeFull(googleGroupEmail)}/members');
     final JsArray members = result['members'];
     print("Group members: ${stringify(members)}");
     final index = members.map((m) {
@@ -69,7 +73,7 @@ class Credential {
   Future<String> _auth(bool immediate) {
     final result = new Completer();
     context['gapi']['auth'].callMethod('authorize', [
-      new JsObject.jsify({'client_id': clientId, 'scope': scopes.join(' '), 'response_type': 'token id_token', 'immediate': immediate}),
+      new JsObject.jsify({'client_id': googleClientId, 'scope': scopes.join(' '), 'response_type': 'token id_token', 'immediate': immediate}),
       (res) {
         print("Google Auth Result: ${stringify(res)}");
         if (res['error'] != null) {
