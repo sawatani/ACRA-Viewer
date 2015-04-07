@@ -4,3 +4,6 @@ pubspec.lock
 /build/
 /node_modules/
 test/results.xml
+/platforms/
+/plugins/
+resources/*/
