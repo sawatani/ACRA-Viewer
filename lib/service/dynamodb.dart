@@ -35,13 +35,9 @@ class DynamoDB {
   void refreshApps() {
     print("Start to refresh applications list");
     _apps.allList().then((List<App> list) {
-      scope.apply(() {
-        _cachedApps = list;
-      });
+      _cachedApps = list;
     }).catchError((error) {
-      scope.apply(() {
-        _cachedApps = null;
-      });
+      _cachedApps = null;
       print("Failed to get applications list: ${error}");
     });
   }
