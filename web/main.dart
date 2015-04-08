@@ -7,6 +7,7 @@ import 'package:acra_viewer/component/report.dart';
 import 'package:acra_viewer/component/credential.dart';
 import 'package:acra_viewer/service/dynamodb.dart';
 import 'package:acra_viewer/service/credential.dart';
+import 'package:acra_viewer/service/resource_url_resolver_cordova.dart';
 
 import 'package:angular/angular.dart';
 import 'package:angular/application_factory.dart';
@@ -23,6 +24,8 @@ class ACRAViewerModule extends Module {
     bind(DynamoDB);
     bind(RouteInitializerFn, toValue: recipeBookRouteInitializer);
     bind(NgRoutingUsePushState, toValue: new NgRoutingUsePushState.value(false));
+    bind(ResourceResolverConfig, toValue: new ResourceResolverConfig.resolveRelativeUrls(false));
+    bind(ResourceUrlResolver, toImplementation: ResourceUrlResolverCordova);
   }
 }
 

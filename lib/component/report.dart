@@ -6,7 +6,7 @@ import 'package:acra_viewer/decorator/history_back.dart';
 
 @Component(
     selector: 'report',
-    templateUrl: 'report.html')
+    templateUrl: 'packages/acra_viewer/component/report.html')
 class ReportComponent extends HistoryBack {
   final DynamoDB _db;
   Report report;

@@ -5,7 +5,7 @@ import 'package:acra_viewer/service/credential.dart';
 
 @Component(
     selector: 'credential',
-    templateUrl: 'credential.html')
+    templateUrl: 'packages/acra_viewer/component/credential.html')
 class CredentialComponent {
   final Credential cred;
 

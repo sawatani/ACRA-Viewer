@@ -6,7 +6,7 @@ import 'package:acra_viewer/service/dynamodb.dart';
 
 @Component(
     selector: 'apps-list',
-    templateUrl: 'apps-list.html')
+    templateUrl: 'packages/acra_viewer/component/apps-list.html')
 class AppsListComponent extends PropMap {
   final DynamoDB _db;
   final Router _router;
