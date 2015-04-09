@@ -20,7 +20,7 @@ class DynamoDB {
   List<App> get allApps => _cachedApps;
 
   DynamoDB(this.scope) {
-    scope.rootScope.on(Cred.Credential.EVENT_CONNECTED).listen((event) {
+    Cred.Credential.onConnected((event) {
       refreshApps();
     });
   }

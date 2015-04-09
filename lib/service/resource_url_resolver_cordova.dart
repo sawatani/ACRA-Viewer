@@ -1,3 +1,5 @@
+library resource_url_resolver_cordova;
+
 import 'dart:html';
 import 'package:angular/angular.dart';
 import 'package:angular/core_dom/type_to_uri_mapper.dart';

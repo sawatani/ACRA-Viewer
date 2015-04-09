@@ -8,6 +8,7 @@ import 'package:acra_viewer/component/credential.dart';
 import 'package:acra_viewer/service/dynamodb.dart';
 import 'package:acra_viewer/service/credential.dart';
 import 'package:acra_viewer/service/resource_url_resolver_cordova.dart';
+import 'package:acra_viewer/util/cordova.dart';
 
 import 'package:angular/angular.dart';
 import 'package:angular/application_factory.dart';
@@ -33,9 +34,12 @@ void main() {
   Logger.root..level = Level.FINEST
              ..onRecord.listen((LogRecord r) { print(r.message); });
 
-  initPolymer().run(() {
-    applicationFactory()
-      .addModule(new ACRAViewerModule())
-      .run();
+  Cordova.initialize();
+  Cordova.onReady((event) {
+    initPolymer().run(() {
+      applicationFactory()
+        .addModule(new ACRAViewerModule())
+        .run();
+    });
   });
 }
