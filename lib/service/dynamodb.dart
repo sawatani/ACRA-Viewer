@@ -44,7 +44,7 @@ class DynamoDB {
 }
 
 class Delegate<T> {
-  static final db = new JsObject(context['AWS']['DynamoDB']);
+  static final db = new JsObject(context['AWS']['DynamoDB'], [new JsObject.jsify({'dynamoDbCrc32': false})]);
 
   final String tableName;
   var _converter;
