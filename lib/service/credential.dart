@@ -5,21 +5,25 @@ import 'dart:js';
 
 import 'package:angular/angular.dart';
 
+import 'package:acra_viewer/util/cordova.dart';
+import 'package:acra_viewer/util/after_done.dart';
+
 @Injectable()
 class Credential {
-  static const EVENT_CONNECTED = "EVENT_CONNECTED";
   static const awsRegion = "us-east-1";
   static const awsApiKey = "AIzaSyC-RwPWTsW9dd4aGZPMe3f7K67Wh0zHLCI";
   static const cognitoId = "us-east-1:fcf0d3cc-c16f-4221-be60-5838f9f5421e";
   static const googleClientId = "567792211222-rh242nv550rlc7hdi249c3uvgk6olfqt.apps.googleusercontent.com";
-  static const scopes = const["https://www.googleapis.com/auth/plus.login", "https://www.googleapis.com/auth/admin.directory.group.member.readonly"];
+  static const scopes = const ["https://www.googleapis.com/auth/plus.login", "https://www.googleapis.com/auth/admin.directory.group.member.readonly"];
   static const googleGroupEmail = "campany@fathens.org";
+
+  static final AfterDone<String> _connected = new AfterDone<String>("Credential connected");
+  static void onConnected(void proc(String)) => _connected.listen(proc);
 
   static bool _initialize() {
     print("Initializing credentials ...");
     context['AWS']['config']['region'] = awsRegion;
-    context['AWS']['config']['credentials'] =
-        new JsObject(context['AWS']['CognitoIdentityCredentials'], [new JsObject.jsify({'IdentityPoolId': cognitoId})]);
+    context['AWS']['config']['credentials'] = new JsObject(context['AWS']['CognitoIdentityCredentials'], [new JsObject.jsify({'IdentityPoolId': cognitoId})]);
     context['gapi']['client'].callMethod('setApiKey', [awsApiKey]);
     return true;
   }
@@ -90,14 +94,23 @@ class Credential {
   }
 
   Future<bool> signinGoogle(bool immediate) async {
-    final id_token = await _auth(immediate);
-    final userId = await _getUserId();
-    final ok = await _isMember(userId);
+    Future<bool> _onBrowser() async {
+      final token = await _auth(immediate);
+      final userId = await _getUserId();
+      final member = await _isMember(userId);
+      if (member) _setGoogleToken(token);
+      return member;
+    }
+    Future<bool> _onCordova() {
+      final result = new Completer();
+      new Timer(new Duration(seconds: 3), () {
+        result.complete(true);
+      });
+      return result.future;
+    }
+    final ok = Cordova.isCordova ? await _onCordova() : await _onBrowser();
     if (ok) {
-      _setGoogleToken(id_token);
-      rootScope.broadcast(EVENT_CONNECTED);
-    } else {
-      print("This user is not permitted.");
+      _connected.done("");
     }
     return ok;
   }

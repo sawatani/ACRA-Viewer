@@ -20,7 +20,7 @@ class DynamoDB {
   List<App> get allApps => _cachedApps;
 
   DynamoDB(this.scope) {
-    scope.rootScope.on(Cred.Credential.EVENT_CONNECTED).listen((event) {
+    Cred.Credential.onConnected((event) {
       refreshApps();
     });
   }
@@ -44,7 +44,7 @@ class DynamoDB {
 }
 
 class Delegate<T> {
-  static final db = new JsObject(context['AWS']['DynamoDB']);
+  static final db = new JsObject(context['AWS']['DynamoDB'], [new JsObject.jsify({'dynamoDbCrc32': false})]);
 
   final String tableName;
   var _converter;
