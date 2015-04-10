@@ -15,11 +15,10 @@ class DynamoDB {
     return new App(id, tableName);
   });
 
-  final Scope scope;
   List<App> _cachedApps = null;
   List<App> get allApps => _cachedApps;
 
-  DynamoDB(this.scope) {
+  DynamoDB() {
     Cred.Credential.onConnected((event) {
       refreshApps();
     });
