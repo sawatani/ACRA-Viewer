@@ -7,6 +7,9 @@
     <div ng-if="loaded">
         <h3>Application List</h3>
         
+        <p>{{pageLength}}</p>
+        <paper-slider min="0" max="{{pageLengthMax}}" value="{{pageLength}}" pin="true" listen-change-value="onChange;"></paper-slider>
+        
         <div ng-repeat="model in allApps" ng-click="goApp(model.id)">
             <paper-item>
                 <p>{{model.id}}</p>

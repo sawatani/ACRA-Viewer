@@ -8,6 +8,7 @@ import 'package:acra_viewer/component/credential.dart';
 import 'package:acra_viewer/service/dynamodb.dart';
 import 'package:acra_viewer/service/credential.dart';
 import 'package:acra_viewer/service/resource_url_resolver_cordova.dart';
+import 'package:acra_viewer/decorator/listen_event.dart';
 import 'package:acra_viewer/util/cordova.dart';
 
 import 'package:angular/angular.dart';
@@ -21,6 +22,7 @@ class ACRAViewerModule extends Module {
     bind(ReportsListComponent);
     bind(ReportComponent);
     bind(CredentialComponent);
+    bind(ListenChangeValue);
     bind(Credential);
     bind(DynamoDB);
     bind(RouteInitializerFn, toValue: recipeBookRouteInitializer);

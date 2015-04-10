@@ -2,7 +2,7 @@ library reports_list_component;
 
 import 'package:angular/angular.dart';
 import 'package:acra_viewer/service/dynamodb.dart';
-import 'package:acra_viewer/decorator/history_back.dart';
+import 'package:acra_viewer/util/history_back.dart';
 
 @Component(
     selector: 'reports-list',
