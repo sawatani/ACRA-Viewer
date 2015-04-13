@@ -1,18 +1,26 @@
-<div>
-    <paper-icon-button icon="arrow-back" ng-click="back()"></paper-icon-button>
-</div>
-<h3>Report List</h3>
-<div ng-switch="allReports">
-    <div ng-switch-when="null">
-        <p>Loading...</p>
-    </div>
-    <div ng-switch-default>
-        <div id="report-list">
-            <paper-shadow>
-                <paper-item ng-repeat="report in allReports">
-                    <a class="extra-space" href="#/app/{{app.id}}/report/{{report.id}}">{{report.timestamp}}</a>
-                </paper-item>
-            </paper-shadow>
-        </div>
-    </div>
-</div>
+<core-drawer-panel id="drawerPanel">
+    <core-header-panel main>
+    	<core-toolbar>
+    	
+			<paper-icon-button icon="arrow-back" ng-click="back()"></paper-icon-button>
+    	
+      		<p>Report List</p>
+      		
+    	</core-toolbar>
+    	
+    	<div style="margin: 10px">
+		    <div ng-if="!loaded">
+		        <p>Loading...</p>
+		    </div>
+		    <div ng-if="loaded">
+		        <div id="report-list">
+		            <paper-shadow>
+		                <paper-item ng-repeat="report in allReports">
+		                    <a class="extra-space" href="#/app/{{app.id}}/report/{{report.id}}">{{report.timestamp}}</a>
+		                </paper-item>
+		            </paper-shadow>
+		        </div>
+		    </div>
+    	</div>
+    </core-header-panel>
+</core-drawer-panel>
