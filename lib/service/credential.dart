@@ -19,6 +19,7 @@ class Credential {
 
   static final AfterDone<String> _connected = new AfterDone<String>("Credential connected");
   static void onConnected(void proc(String)) => _connected.listen(proc);
+  static bool get isConnected => _connected.isDone;
 
   static bool _initialize() {
     print("Initializing credentials ...");
