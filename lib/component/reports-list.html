@@ -14,11 +14,9 @@
 		    </div>
 		    <div ng-if="loaded">
 		        <div id="report-list">
-		            <paper-shadow>
-		                <paper-item ng-repeat="report in allReports">
-		                    <a class="extra-space" href="#/app/{{app.id}}/report/{{report.id}}">{{report.timestamp}}</a>
-		                </paper-item>
-		            </paper-shadow>
+	                <paper-item ng-repeat="report in allReports">
+	                    <a class="extra-space" href="#/app/{{app.id}}/report/{{report.id}}">{{report.timestamp}}</a>
+	                </paper-item>
 		        </div>
 		    </div>
     	</div>
