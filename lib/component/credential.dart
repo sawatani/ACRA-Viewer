@@ -8,20 +8,19 @@ import 'package:acra_viewer/service/credential.dart';
     templateUrl: 'packages/acra_viewer/component/credential.html')
 class CredentialComponent {
   final Credential cred;
-
-  bool authorized = false;
+  
+  bool get authorized => Credential.isConnected;
 
   CredentialComponent(this.cred) {
-    print("CredentialComponent is instantiated with ${cred}");
-    cred.signinGoogle(true).then((bool connected) {
-      authorized = connected;
-    });
+    if (!Credential.isConnected) {
+      cred.signinGoogle(true);
+    }
   }
 
   void signIn() {
-    print("Start SignIn with Google");
-    cred.signinGoogle(false).then((bool connected) {
-      authorized = connected;
-    });
+    if (!authorized) {
+      print("Start SignIn with Google");
+      cred.signinGoogle(false);
+    }
   }
 }
